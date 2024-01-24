@@ -35,7 +35,7 @@ public class TestWorker
     {
         while (!_cts.IsCancellationRequested)
         {
-            _logger.LogInformation($"TestWorker is running: {_counter++}");
+            _logger.LogInformation("TestWorker is running: {Counter}", _counter++);
             await Task.Delay(1000, _cts.Token);
         }
     }
