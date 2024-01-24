@@ -24,7 +24,11 @@ public class WorkController : ControllerBase
     [HttpGet("stop")]
     public async Task<IActionResult> Stop()
     {
-        _testWorker.Stop();
+        bool result = _testWorker.Stop();
+        if (!result)
+        {
+            return BadRequest("Worker not started");
+        }
         return Ok("Stopped");
     }
 }

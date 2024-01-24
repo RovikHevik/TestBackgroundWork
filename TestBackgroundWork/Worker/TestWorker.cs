@@ -18,17 +18,17 @@ public class TestWorker
         Task.Run(DoWork).ConfigureAwait(false);
     }
     
-    public void Stop()
+    public bool Stop()
     {
         _logger.LogInformation("Stopping TestWorker");
-        if (_cts != null)
+        if (_cts == null || _cts.IsCancellationRequested)
         {
-            _cts.Cancel();
+            return false;
         }
-        else
-        {
-            throw new Exception("TestWorker is not running");
-        }
+        
+        _cts.Cancel();
+        return true;
+
     }
     
     private async Task DoWork()
